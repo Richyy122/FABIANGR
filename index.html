@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Coach Fabián — Entrenamiento Personal</title>
+  <meta name="description" content="Página profesional de entrenamiento personal con membresías, planes y galería.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#ff5a3c;--dark:#0f1724;--muted:#6b7280;--card:#0b1220}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#e6eef8;background:linear-gradient(180deg,#071020 0%, #081428 50%, #06151f 100%);}    
+    a{color:inherit;text-decoration:none}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:linear-gradient(90deg, rgba(255,255,255,0.03), transparent);backdrop-filter:blur(4px);position:sticky;top:0;z-index:40}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{width:54px;height:54px;border-radius:8px;object-fit:cover}
+    .brand h1{font-size:18px;margin:0;color:white}
+    nav{display:flex;gap:18px;align-items:center}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:white}
+
+    /* Hamburger */
+    .hamb{display:none;background:transparent;border:0;color:white;font-size:24px}
+    @media(max-width:900px){nav{display:none}.hamb{display:block}}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:30px;padding:48px 28px;align-items:center}
+    .hero .kicker{color:var(--accent);text-transform:uppercase;font-weight:700;font-size:12px}
+    .hero h2{font-size:40px;margin:8px 0 12px;color:white;line-height:1.03}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .hero .actions{display:flex;gap:12px}
+    .card-hero{background:linear-gradient(180deg, rgba(255,255,255,0.02),transparent);padding:18px;border-radius:14px}
+    .stat-grid{display:flex;gap:10px;margin-top:12px}
+    .stat{background:rgba(255,255,255,0.03);padding:12px;border-radius:10px;color:white;text-align:center;flex:1}
+
+    /* Plans */
+    .plans{padding:36px 28px;display:grid;gap:18px}
+    .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;}.plans-grid{grid-template-columns:1fr}}
+    .plan{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);color:white}
+    .plan h3{margin:0 0 6px}
+    .price{font-size:26px;font-weight:800;margin:8px 0}
+    .features{color:var(--muted);font-size:14px;margin:10px 0}
+
+    /* About */
+    .about{display:flex;gap:18px;padding:28px}
+    .about img{width:320px;height:320px;border-radius:12px;object-fit:cover}
+    .about .bio{color:var(--muted)}
+    @media(max-width:900px){.about{flex-direction:column;align-items:center}.about img{width:80%;height:auto}}
+
+    /* Gallery */
+    .gallery{padding:28px;display:grid;gap:12px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    @media(max-width:1100px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:700px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+    .gallery img{width:100%;height:190px;object-fit:cover;border-radius:10px}
+
+    /* Footer */
+    footer{padding:20px 28px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+
+    /* Modal / forms */
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:60}
+    .modal.open{display:flex}
+    .modal .box{background:#071526;padding:20px;border-radius:14px;width:420px;max-width:95%}
+    .field{display:flex;flex-direction:column;margin-bottom:10px}
+    label{font-size:13px;color:#cbd5e1;margin-bottom:6px}
+    input[type=text],input[type=email],input[type=password],select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:white}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* testimonials */
+    .refs{padding:28px}
+    .refs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    @media(max-width:1000px){.refs-grid{grid-template-columns:repeat(2,1fr)}}
+    .ref-card{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;text-align:center}
+    .ref-card img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+
+    /* small helpers */
+    .center{text-align:center}
+    .muted{color:var(--muted)}
+
+    /* login area */
+    .auth-row{display:flex;gap:8px;align-items:center}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="fotos/Logo.jpg" alt="logo coach">
+      <div>
+        <h1>Coach Fabián</h1>
+  <div style="margin-top: 10px;">
+    <a href="https://www.facebook.com/profile.php?id=100076606173138" target="_blank" style="color: rgb(255, 255, 255); margin: 0 10px; font-size: 24px;">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://instagram.com/coach_fabiangr" target="_blank" style="color: rgb(255, 255, 255); margin: 0 10px; font-size: 24px;">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://wa.me/528661075070" target="_blank" style="color: rgb(255, 255, 255); margin: 0 10px; font-size: 24px;">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+     <a href="https://www.tiktok.com/@coach_fabiangr?_r=1&_t=ZS-918DUHSDprw" target="_blank" style="color: rgb(255, 255, 255); margin: 0 10px; font-size: 24px;">
+      <i class="fab fa-tiktok"></i>
+    </a>
+  </div>
+      <div class="small muted">Entrenamiento personal • Online y presencial</div>
+      </div>
+    </div>
+
+    <nav id="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#planes">Planes</a>
+      <a href="#acerca">Acerca</a>
+      <a href="#galeria">Galería</a>
+      <a href="#referencias">Referencias</a>
+      <div class="auth-row">
+        <button class="ghost" id="btn-login">Iniciar sesión</button>
+        <button class="btn" id="btn-signup">Crear cuenta</button>
+      </div>
+    </nav>
+
+    <button class="hamb" id="hamb">☰</button>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero">
+      <div>
+        <div class="kicker">Transforma tu cuerpo</div>
+        <h2>Entrenamiento inteligente, resultados reales.</h2>
+        <p>Programas personalizados, seguimiento semanal, y soporte 24/7. Entrena desde casa o en el gym con planes escalables para todo nivel.</p>
+        <div class="actions">
+          <button class="btn" onclick="openModal('plans')">Ver planes</button>
+         <div style="margin: top 100px">
+    <a href="https://wa.me/5286611075070?text=Hola%20Fabia,%20vengo%20de%20tu%20sitio%20web%20y%20quiero%20agendar%20mi%20evaluación" 
+        target="_blank">
+        <button class="btn">Contactar</button>
+    </a>
+</div>
+
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat"><strong>+5 años</strong><div class="small">Experiencia</div></div>
+          <div class="stat"><strong>+120</strong><div class="small">Clientes transformados</div></div>
+          <div class="stat"><strong>4.9/5</strong><div class="small">Valoración</div></div>
+        </div>
+      </div>
+
+      <div class="card-hero center">
+        <img src="fotos/Fabian2.jpg" alt="destacada" style="width:100%;height:320px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+        <h3>Plan personalizado</h3>
+        <p class="small">Evalúo tu condición y creo un plan con seguimiento semanal y ajustes según progreso.</p>
+        <div style="margin-top:12px"><a href="https://wa.me/5286611075070?text=Hola%20Fabian,%20vengo%20de%20tu%20sitio%20web%20y%20quiero%20agendar%20mi%20evaluación" 
+        target="_blank">
+        <button class="btn">Empezar</button>
+    </a></div>
+      </div>
+    </section>
+
+    <section id="planes" class="plans">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="color:white;margin:0">Planes y membresías</h2>
+      </div>
+
+      <div class="plans-grid" style="margin-top:12px">
+        <div class="plan">
+          <h3>Basic</h3>
+          <div class="price">$19 <span class="small">/ mes</span></div>
+          <div class="features">Plan para empezar: 3 rutinas mensuales, acceso al grupo, guías básicas.</div>
+          <button class="btn" onclick="subscribe('Basic',19)">Suscribirme</button>
+        </div>
+
+        <div class="plan">
+          <h3>Pro</h3>
+          <div class="price">$39 <span class="small">/ mes</span></div>
+          <div class="features">Incluye plan de nutrición, 8 rutinas, seguimiento quincenal, y acceso a sesiones en vivo.</div>
+          <button class="btn" onclick="subscribe('Pro',39)">Suscribirme</button>
+        </div>
+
+        <div class="plan">
+          <h3>Elite</h3>
+          <div class="price">$79 <span class="small">/ mes</span></div>
+          <div class="features">Coaching 1:1, ajustes semanales, plan de suplementación, prioridad en reservas y consultas ilimitadas.</div>
+          <button class="btn" onclick="subscribe('Elite',79)">Suscribirme</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="acerca" class="about">
+      <img src="fotos/Fabian.jpg" alt="coach foto">
+      <div>
+        <h2 style="color:white;margin-top:0">Hola, soy Fabián</h2>
+        <p class="bio">Soy entrenador certificado con más de 5 años ayudando a personas a alcanzar su mejor versión. Mi enfoque combina fuerza, movilidad y hábitos sostenibles. Trabajo con programas personalizados y seguimiento constante para garantizar resultados reales.</p>
+        <ul class="small muted">
+          <li>Certificaciones: Entrenamiento funcional, nutrición deportiva, primeros auxilios.</li>
+          <li>Modalidades: Presencial, online, y mixto.</li>
+          <li>Soporte: Mensajes, video llamadas y seguimiento por app.</li>
+        </ul>
+
+      <div style="margin-top:12px">
+    <a 
+        href="https://wa.me/5286611075070?text=Hola,%20quiero%20agendar%20mi%20evaluación" 
+        target="_blank">
+        <button class="btn">Reservar Evaluacion</button>
+    </a>
+</div>
+
+      </div>
+    </section>
+
+    <section id="galeria" class="gallery">
+      <h2 style="color:white">Fotos destacadas</h2>
+      <div class="gallery-grid" style="margin-top:8px">
+        <img src="fotos/Destacadas/6.jpg" alt="ONE MORE">
+        <img src="fotos/Destacadas/3.jpg" alt="DICIPLINA">
+        <img src="fotos/Destacadas/2.jpg" alt="LA TECNICA ES PRIMERO">
+        <img src="fotos/Destacadas/1.jpg" alt="EJECUCION VALE MAS QUE REPETICIONES">
+      </div>
+    </section>
+
+    <section id="referencias" class="refs">
+      <h2 style="color:white">Referencias</h2>
+      <div class="refs-grid" style="margin-top:8px">
+        <div class="ref-card"><img src="fotos/Referencias/6.jpg" alt="ref1"><div style="margin-top:8px"><strong>Cliente: </strong><div class="small muted">"Perdí 8 kg en 3 meses y gané fuerza"</div></div></div>
+        <div class="ref-card"><img src="fotos/Referencias/3.jpg" alt="ref2"><div style="margin-top:8px"><strong>Cliente: </strong><div class="small muted">"Las rutinas son claras y efectivas"</div></div></div>
+        <div class="ref-card"><img src="fotos/Referencias/2.jpg" alt="ref3"><div style="margin-top:8px"><strong>Cliente: </strong><div class="small muted">"Muy profesional y motivador"</div></div></div>
+        <div class="ref-card"><img src="fotos/Referencias/4.jpg" alt="ref4"><div style="margin-top:8px"><strong>Cliente: </strong><div class="small muted">"Programas adaptados a mi ritmo"</div></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong style="color:white">Coach Fabián</strong>
+      <div class="small muted">Entrenamiento personal • Monclova, Coahuila</div>
+    </div>
+    <div class="small muted">© 2024 Coach Fabián. Todos los derechos reservados.</div>
+  </footer>
+
+  <!-- Modal for login/signup and lightweight interactions -->
+  <div id="modal" class="modal">
+    <div class="box">
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script>
+    // Simple responsive nav toggle
+    const hamb = document.getElementById('hamb');
+    const nav = document.getElementById('nav-links');
+    hamb.addEventListener('click', ()=>{
+      if(nav.style.display==='flex'){nav.style.display='none'}else{nav.style.display='flex';nav.style.flexDirection='column';nav.style.gap='12px';nav.style.padding='12px'}
+    });
+
+    // Modal management
+    function openModal(mode){
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modal-content');
+      if(mode==='plans'){
+        content.innerHTML = `
+          <h3 style="color:white;margin-top:0">Suscribirse</h3>
+          <div class=\"field\"><label>Selecciona plan</label>
+            <select id=\"plan-select\"><option>Basic - $19</option><option>Pro - $39</option><option>Elite - $79</option></select></div>
+          <div class=\"field\"><label>Email</label><input type=\"email\" id=\"sub-email\"></div>
+          <div style=\"display:flex;gap:8px;justify-content:flex-end\"><button class=\"ghost\" onclick=\"closeModal()\">Cancelar</button><button class=\"btn\" onclick=\"fakePay()\">Pagar</button></div>
+        `;
+      } else if(mode==='contact'){
+        content.innerHTML = `
+          <h3 style=\"color:white;margin-top:0\">Contacto</h3>
+          <div class=\"field\"><label>Nombre</label><input type=\"text\" id=\"c-name\"></div>
+          <div class=\"field\"><label>Email</label><input type=\"email\" id=\"c-email\"></div>
+          <div class=\"field\"><label>Mensaje</label><input type=\"text\" id=\"c-msg\"></div>
+          <div style=\"display:flex;gap:8px;justify-content:flex-end\"><button class=\"ghost\" onclick=\"closeModal()\">Cerrar</button><button class=\"btn\" onclick=\"sendContact()\">Enviar</button></div>
+        `;
+      } else if(mode==='login'){
+        content.innerHTML=`<h3 style=\"color:white;margin-top:0\">Iniciar sesión</h3>
+          <div class=\"field\"><label>Email</label><input type=\"email\" id=\"login-email\"></div>
+          <div class=\"field\"><label>Password</label><input type=\"password\" id=\"login-pass\"></div>
+          <div style=\"display:flex;gap:8px;justify-content:flex-end\"><button class=\"ghost\" onclick=\"closeModal()\">Cancelar</button><button class=\"btn\" onclick=\"handleLogin()\">Entrar</button></div>`;
+      } else if(mode==='signup'){
+        content.innerHTML=`<h3 style=\"color:white;margin-top:0\">Crear cuenta</h3>
+          <div class=\"field\"><label>Nombre</label><input type=\"text\" id=\"su-name\"></div>
+          <div class=\"field\"><label>Email</label><input type=\"email\" id=\"su-email\"></div>
+          <div class=\"field\"><label>Password</label><input type=\"password\" id=\"su-pass\"></div>
+          <div style=\"display:flex;gap:8px;justify-content:flex-end\"><button class=\"ghost\" onclick=\"closeModal()\">Cerrar</button><button class=\"btn" onclick=\"handleSignup()\">Crear</button></div>`;
+      }
+      modal.classList.add('open');
+    }
+    function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+    // Fake payment / subscription simulation
+    function fakePay(){
+      const email = document.getElementById('sub-email').value || 'cliente@ejemplo.com';
+      const plan = document.getElementById('plan-select').value || 'Basic - $19';
+      // In real app: call backend to create subscription with Stripe or PayPal
+      alert('Gracias — suscripción simulada: '+plan+'\nEmail: '+email+'\n(Para pagos reales conecta Stripe o PayPal en backend)');
+      closeModal();
+    }
+
+    function subscribe(name,price){
+      if(!logged){openModal('signup');setTimeout(()=>{document.getElementById('su-email')?.focus?.()},200);return}
+      alert('Suscripción iniciada: '+name+' ($'+price+'/mes) — simulación.');
+    }
+
+    // Contact placeholder
+    function sendContact(){
+      const name = document.getElementById('c-name').value || 'Usuario';
+      alert('Mensaje enviado (simulado).\nGracias, '+name+' — te responderé por email.');
+      closeModal();
+    }
+    // Close modal on outside click
+    document.getElementById('modal').addEventListener('click', (e)=>{if(e.target.id==='modal') closeModal();});
+
+    // Smooth scrolling for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click', e=>{e.preventDefault();const id=a.getAttribute('href').slice(1);const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'}); if(window.innerWidth<900)nav.style.display='none'}));
+  </script>
+  <!-- Firebase (compat simple) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+<!-- Firebase SDKs (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+<script>
+  // Tu configuración real
+  const firebaseConfig = {
+    apiKey: "AIzaSyBlEUXh7GO04vjk2F5sWfP_FPIK8Vm-4_w",
+    authDomain: "web-fabian-1391b.firebaseapp.com",
+    projectId: "web-fabian-1391b",
+    storageBucket: "web-fabian-1391b.firebasestorage.app",
+    messagingSenderId: "1080681780619",
+    appId: "1:1080681780619:web:bf84ae88152e21058b0b8e",
+    measurementId: "G-D7YLGMFSG7"
+  };
+
+  // Inicializar Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // === Crear cuenta ===
+  async function handleSignup() {
+    const name  = document.getElementById('su-name')?.value || '';
+    const email = document.getElementById('su-email')?.value || '';
+    const pass  = document.getElementById('su-pass')?.value || '';
+    if (!email || !pass) { alert('Completa email y contraseña'); return; }
+
+    try {
+      const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
+      await userCredential.user.updateProfile({ displayName: name });
+      alert('✅ Cuenta creada correctamente');
+      closeModal();
+    } catch (err) {
+      alert('❌ ' + err.message);
+    }
+  }
+
+  // === Iniciar sesión ===
+  async function handleLogin() {
+    const email = document.getElementById('login-email')?.value || '';
+    const pass  = document.getElementById('login-pass')?.value || '';
+    if (!email || !pass) { alert('Completa email y contraseña'); return; }
+
+    try {
+      await auth.signInWithEmailAndPassword(email, pass);
+      alert('✅ Sesión iniciada');
+      closeModal();
+    } catch (err) {
+      alert('❌ ' + err.message);
+    }
+  }
+
+  // === Cerrar sesión ===
+  async function logout() {
+    await auth.signOut();
+    location.reload();
+  }
+
+  // === Estado de usuario (actualiza el header) ===
+  auth.onAuthStateChanged((user) => {
+    const authRow = document.querySelector('header nav .auth-row');
+    if (!authRow) return;
+
+    if (user) {
+      const display = user.displayName || user.email.split('@')[0];
+      authRow.innerHTML = `<div style="color:white">Hola, ${display}</div>
+                           <button class="ghost" onclick="logout()">Cerrar</button>`;
+    } else {
+      authRow.innerHTML = `
+        <button class="ghost" id="btn-login">Iniciar sesión</button>
+        <button class="btn" id="btn-signup">Crear cuenta</button>
+      `;
+      document.getElementById('btn-login').addEventListener('click', ()=>openModal('login'));
+      document.getElementById('btn-signup').addEventListener('click', ()=>openModal('signup'));
+    }
+  });
+
+  // === Modificación en la suscripción ===
+  function subscribe(name, price){
+    const user = auth.currentUser;
+    if(!user){
+      openModal('signup');
+      return;
+    }
+    alert(`Suscripción simulada al plan ${name} ($${price}/mes)`);
+  }
+</script>
+
+
+</body>
+</html>
